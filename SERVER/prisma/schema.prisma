@@ -5,6 +5,10 @@ generator client {
   provider = "prisma-client-js"
 }
 
+generator erd {
+  provider = "prisma-erd-generator"
+}
+
 datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
@@ -13,10 +17,12 @@ datasource db {
 //Mongo, Cockroach, SQL
 
 model Habit {
-  id         String     @id @default(uuid())
+  id         String   @id @default(uuid())
   title      String
   created_at DateTime
-  DayHabit   DayHabit[]
+
+  daysHabits DayHabit[]
+  weekDays   HabitWeekDays[]
 
   @@map("habits")
 }
@@ -26,6 +32,7 @@ model HabitWeekDays {
   habit_id String
 
   week_day Int
+  habit    Habit @relation(fields: [habit_id], references: [id])
 
   @@unique([habit_id, week_day])
   @@map("habit_week_days")
