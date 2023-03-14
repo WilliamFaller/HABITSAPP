@@ -3,6 +3,8 @@ import { z } from 'zod'
 import { prisma } from "./lib/prisma";
 import dayjs from "dayjs";
 
+//Criação de novos hábitos
+
 export async function appRoutes(app: FastifyInstance) {
     app.post('/habits', async (request) => {
         const createHabitBody = z.object({
@@ -11,7 +13,7 @@ export async function appRoutes(app: FastifyInstance) {
                 z.number().min(0).max(6)
             )
         });
-
+      
         const { title, weekDays } = createHabitBody.parse(request.body)
 
         const today = dayjs().startOf('day').toDate();
@@ -30,6 +32,8 @@ export async function appRoutes(app: FastifyInstance) {
             }
         })
     });
+
+    //Consulta de Hábitos por dia
 
     app.get('/day', async (request) => {
         const getDayParams = z.object({
@@ -69,6 +73,9 @@ export async function appRoutes(app: FastifyInstance) {
             completedhabits
         }
     })
+
+
+    
 
     app.patch('/habits/:id/toggle', async (request) => {
         const toggleHabitParams = z.object({
