@@ -1,5 +1,6 @@
 import axios from 'axios'
 
+// Configuração da api através do Axios
 export const api = axios.create({
-    baseURL: 'http://localhost:777'
-})
+    baseURL: 'http://localhost:3333'
+});
