@@ -32,7 +32,7 @@ export function New(){
         //Trativa para ver se o titulo e os dias estão preenchidos
         try{ 
             if(!title.trim() || weekDays.length === 0){
-                Alert.alert('Novo Hábito', 'Informe o nome do hábito e escolha a periodicidade')
+                return Alert.alert('Novo Hábito', 'Informe o nome do hábito e escolha a periodicidade')
             }
         //Enviar as respostas do usuário para a api
         await api.post('/habits', {title, weekDays});
